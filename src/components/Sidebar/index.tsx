@@ -16,6 +16,7 @@ import {
 
 import NextLink from "next/link";
 import { motion } from 'framer-motion'
+import { useRouter } from "next/router";
 type SideBarProps = {
   variant?: string;
   isOpen: boolean;
@@ -28,6 +29,8 @@ type MenuContentProps = {
 
 export const MenuContent = ({ onClick }: MenuContentProps) => {
 
+  const router = useRouter()
+  console.log(router.pathname)
   const items = [
     {
       to: "/",
@@ -48,7 +51,7 @@ export const MenuContent = ({ onClick }: MenuContentProps) => {
       {items.map((item, i) => (
         <ListItem key={i} cursor="pointer" onClick={onClick}>
           <Link as={NextLink} href={item.to}>
-            <Text fontSize="2xl">{item.label}</Text>
+            <Text fontSize="2xl" textDecoration={router.pathname === item.to ? "underline" : "unset"}>{item.label}</Text>
           </Link>
         </ListItem>
       ))}
