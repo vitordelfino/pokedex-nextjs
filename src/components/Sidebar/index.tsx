@@ -22,9 +22,11 @@ type SideBarProps = {
   onClose: () => void;
 };
 
+type MenuContentProps = {
+  onClick: () => void
+}
 
-
-export const MenuContent = ({ onClick }) => {
+export const MenuContent = ({ onClick }: MenuContentProps) => {
 
   const items = [
     {

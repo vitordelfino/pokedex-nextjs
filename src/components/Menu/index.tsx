@@ -15,7 +15,7 @@ export const Menu = () => {
     <>
     <Sidebar variant={variants?.navigation} isOpen={isSidebarOpen}
       onClose={toggleSidebar}/>
-    <Box ml={!variants?.navigationButton}>
+    <Box>
       <Header
         showSidebarButton={variants?.navigationButton}
         onShowSidebar={toggleSidebar}

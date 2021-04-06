@@ -1,4 +1,4 @@
-import { Box, Center, IconButton, Text, Flex } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
 
 interface Props {
