@@ -1,54 +1,56 @@
-import { Center, Text, Box, Image, VStack } from "@chakra-ui/react";
-import { motion } from "framer-motion";
-import { useState } from "react";
-import { AutoComplete } from "../../components/AutoComplete";
-import { usePokemon } from "../../hooks/usePokemon";
-type PokemonsProps = {
-  pokemons: Array<{ label: string; value: string }>;
-};
+import { Center, Spinner, Text, Wrap, WrapItem, VStack, Button } from '@chakra-ui/react'
+import { useRef, useState } from 'react';
+import PokemonCard from '../../components/PokemonCard';
+import { useListPokemon } from '../../hooks/useListPokemons';
 
-const Pokemons = ({ pokemons }: PokemonsProps) => {
-  const MotionCenter = motion(Center);
-  const [pokeToSearch, setPokeToSearch] = useState('');
-  const { isLoading, data, isError } = usePokemon(pokeToSearch);
+const Pokemons = () => {
+  const [offset, setOffset] = useState(20);
+  const { isLoading, isError, data, fetchNextPage, hasNextPage, isFetchingNextPage } = useListPokemon()
+  // const loadMoreButtonRef = useRef()
+  // useIntersectionObserver({
+  //   target: loadMoreButtonRef,
+  //   onIntersect: fetchNextPage,
+  //   enabled: hasNextPage,
+  // })
   return (
-    <MotionCenter
-      initial="hidden"
-      animate="visible"
-      variants={{
-        visible: { opacity: 1 },
-        hidden: { opacity: 0 },
-      }}
-    >
-      <VStack>      
-        <AutoComplete items={pokemons} onSelect={(pokemon) => setPokeToSearch(pokemon)}/>
-        { isLoading && <Text>loading</Text> }
-        { isError && <Text>loading</Text> }
-        { data && (
-          <Box boxSize="sm">
-            <Image src={data.sprites.front_default} alt={data.name} />
-          </Box>
-        ) }
+    <Center>
+      <VStack
+        marginLeft={["0", "0", "0", "300"]}
+      >      
+        <Text fontSize="2xl">POKEMONS</Text>
+        { isLoading && (
+          <Spinner />
+        )}
+        {
+          isError && (
+            <Text>Error</Text>
+          )
+        }
+        <Wrap
+          justifyContent="center"
+          spacing={["1.5", "5", "10"]}
+          justify="center"
+        >
+          {data && (
+            data.pages.map((p: any) => (
+              p.results.map((pokemon: any, j: number) => (
+                <WrapItem>
+                  <PokemonCard name={pokemon.name} url={pokemon.url} key={`${pokemon.name}_${j}`}/>
+                </WrapItem>
+              ))
+            ))
+          )}
+        </Wrap>
+        <Button 
+          // ref={loadMoreButtonRef}
+          onClick={() => fetchNextPage()}
+          disabled={!hasNextPage || isFetchingNextPage}
+        >
+          MAIS
+        </Button>
       </VStack>
-    </MotionCenter>
-  );
-};
-
-export async function getStaticProps() {
-  const res = await fetch("https://pokeapi.co/api/v2/pokemon/");
-  const data = await res.json();
-  const allPokemonsResponse = await fetch(
-    `https://pokeapi.co/api/v2/pokemon?offset=0&limit=${data.count || 1118}`
-  );
-  const allPokemons = await allPokemonsResponse.json();
-  return {
-    props: {
-      pokemons: allPokemons.results.map((p: any) => ({
-        label: p.name,
-        value: p.name,
-      })),
-    },
-  };
+    </Center>
+  )
 }
 
 export default Pokemons;

@@ -10,8 +10,6 @@ export const Menu = () => {
   const variants = useBreakpointValue({ base: mobileVariant, lg: desktopVariant });
   const toggleSidebar = () => 
     setSidebarOpen(!isSidebarOpen);
-    
-  
 
   return (
     <>

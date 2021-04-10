@@ -1,7 +1,7 @@
 import {  useQuery } from 'react-query';
 import api from '../services/api';
 
-export const usePokemon = (pokemon: string) => {
+export const useSearchPokemon = (pokemon: string) => {
   const fetchPokemon = async () => {
     const response = await api.get(`/pokemon/${pokemon}`);
     return response.data
