@@ -6,7 +6,7 @@ type PokemonCardProps = {
 };
 
 const PokemonCard = ({ name }: PokemonCardProps) => {
-  const { isLoading, isError, data } = useSearchPokemon(name);
+  const { isLoading, data } = useSearchPokemon(name);
 
   return (
     <Box maxW={["100", "130", "150", "200", "220", "250"]} border="1px">
