@@ -7,14 +7,16 @@ export const Menu = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false)
   const mobileVariant = { navigation: 'drawer', navigationButton: true };
   const desktopVariant = { navigation: 'sidebar', navigationButton: false };
-
   const variants = useBreakpointValue({ base: mobileVariant, lg: desktopVariant });
-  const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
+  const toggleSidebar = () => 
+    setSidebarOpen(!isSidebarOpen);
+    
+  
 
   return (
     <>
     <Sidebar variant={variants?.navigation} isOpen={isSidebarOpen}
-      onClose={toggleSidebar}/>
+      onClose={toggleSidebar} />
     <Box>
       <Header
         showSidebarButton={variants?.navigationButton}

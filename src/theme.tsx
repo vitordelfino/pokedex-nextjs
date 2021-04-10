@@ -10,21 +10,19 @@ const fonts = { mono: `'Menlo', monospace` }
 // })
 
 const theme = extendTheme({
-  /* components: {
-    Drawer: {
-      baseStyle: {
-        backgroundColor: "red",
-        color: 'gray.50'
+  components: {
+    Input: {
+      defaultProps: {
+        focusBorderColor: 'gray.600',
       },
-    
-  }, */
+    }
+  },
   styles: {
     global: {
       body: {
         bg: "gray.800",
         color: "gray.50"
-      },
-      
+      }
     }
   },
   fonts,
