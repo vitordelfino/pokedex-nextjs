@@ -1,13 +1,16 @@
-import { Center } from "@chakra-ui/react";
+import { Center, Text, Box, Image, VStack } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { AutoComplete } from "../../components/AutoComplete";
+import { usePokemon } from "../../hooks/usePokemon";
 type PokemonsProps = {
   pokemons: Array<{ label: string; value: string }>;
 };
 
 const Pokemons = ({ pokemons }: PokemonsProps) => {
   const MotionCenter = motion(Center);
-
+  const [pokeToSearch, setPokeToSearch] = useState('');
+  const { isLoading, data, isError } = usePokemon(pokeToSearch);
   return (
     <MotionCenter
       initial="hidden"
@@ -17,7 +20,16 @@ const Pokemons = ({ pokemons }: PokemonsProps) => {
         hidden: { opacity: 0 },
       }}
     >
-      <AutoComplete items={pokemons} />
+      <VStack>      
+        <AutoComplete items={pokemons} onSelect={(pokemon) => setPokeToSearch(pokemon)}/>
+        { isLoading && <Text>loading</Text> }
+        { isError && <Text>loading</Text> }
+        { data && (
+          <Box boxSize="sm">
+            <Image src={data.sprites.front_default} alt={data.name} />
+          </Box>
+        ) }
+      </VStack>
     </MotionCenter>
   );
 };

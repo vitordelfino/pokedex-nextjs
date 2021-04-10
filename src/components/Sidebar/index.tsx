@@ -32,7 +32,6 @@ type MenuContentProps = {
 export const MenuContent = ({ onClick }: MenuContentProps) => {
 
   const router = useRouter()
-  console.log(router.pathname)
   const items = [
     {
       to: "/",
