@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <AnimateSharedLayout >
       <ChakraProvider resetCSS theme={theme}>
         <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools initialIsOpen />
+          <ReactQueryDevtools initialIsOpen={process.env.NODE_ENV === 'development'} />
           <Menu />     
           <Component {...pageProps} />
         </QueryClientProvider>
