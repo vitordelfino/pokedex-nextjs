@@ -36,10 +36,7 @@ const Pokemons = () => {
         
         <meta name="twitter:card" content="summary" key="twcard" />
         <meta name="twitter:creator" content="vitordelfino" key="twhandle" />
-        <meta
-          property="twitter:image"
-          content="https://i.imgur.com/md0T87F.png" key="twimage" 
-        />
+        <meta name="twitter:image" content="https://i.imgur.com/md0T87F.png" key="twimage" />
 
         <meta property="og:url" content="www.pokedex.dev/pokemons" key="ogurl" />
         <meta property="og:image" content="https://i.imgur.com/md0T87F.png" key="ogimage" />
