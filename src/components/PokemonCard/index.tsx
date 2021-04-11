@@ -20,6 +20,7 @@ const PokemonCard = ({ name }: PokemonCardProps) => {
           
           src={data.sprites.other["official-artwork"].front_default}
           alt={data.name}
+          fallbackSrc={`https://via.placeholder.com/150?text=${name}`} 
         ></Image>
       )}
     </Box>
