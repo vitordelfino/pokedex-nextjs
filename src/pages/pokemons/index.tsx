@@ -67,7 +67,7 @@ const Pokemons = () => {
         <title>Pokemons</title>
       </Head>
       <Center 
-        maxWidth="1100px"
+        mW="1100px"
         paddingX={["0", "0", "0","120", "150", "150", "200"]}
         marginLeft={["0", "0", "0", "200", "220", "220", "220"]}
       >
