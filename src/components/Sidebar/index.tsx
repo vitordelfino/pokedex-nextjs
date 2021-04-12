@@ -1,6 +1,5 @@
 import {
   Text,
-  Link,
   Box,
   Drawer,
   DrawerOverlay,
@@ -107,8 +106,6 @@ export const Sidebar = ({ variant, isOpen, onClose }: SideBarProps) => {
       borderRight="0.5px solid #4A5568"
     >
       <VStack spacing={6} alignItems="flex-start">
-        <Heading></Heading>
-
         <MenuContent onClick={() => {}}/>
       </VStack>
     </MotionBox>
