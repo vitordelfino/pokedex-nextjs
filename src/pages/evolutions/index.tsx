@@ -1,7 +1,10 @@
 import { Center } from '@chakra-ui/react'
 import {motion} from 'framer-motion';
+import { useSearchPokemon } from '../../hooks/useSearchPokemon';
+
 const Evolutions = () => {
   const MotionCenter = motion(Center);
+  const { data } = useSearchPokemon('bulbasaur');
   return (
     <MotionCenter
       initial="hidden"
@@ -10,7 +13,12 @@ const Evolutions = () => {
         visible: { opacity: 1 },
         hidden: { opacity: 0 },
       }}>
-      Evolutions
+      { data && (
+        <span>
+          { data.name }
+        </span>
+          
+      )}
     </MotionCenter>
   )
 }

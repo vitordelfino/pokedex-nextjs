@@ -20,7 +20,7 @@ const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: "gray.800",
+        bg: "gray.900",
         color: "gray.50"
       }
     }

@@ -1,15 +1,16 @@
 import { Center, Text, Box, Image, VStack } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { QueryClient } from "react-query";
+import { dehydrate } from "react-query/hydration";
 import { AutoComplete } from "../../components/AutoComplete";
+import { getAllPokemonNames, useAllPokemonNames } from "../../hooks/useAllPokemons";
 import { useSearchPokemon } from "../../hooks/useSearchPokemon";
-type PokemonsProps = {
-  pokemons: Array<{ label: string; value: string }>;
-};
 
-const Pokemons = ({ pokemons }: PokemonsProps) => {
+const Search = () => {
   const MotionCenter = motion(Center);
   const [pokeToSearch, setPokeToSearch] = useState('');
+  const { data: pokemons } = useAllPokemonNames();
   const { isLoading, data, isError } = useSearchPokemon(pokeToSearch);
   return (
     <MotionCenter
@@ -35,20 +36,14 @@ const Pokemons = ({ pokemons }: PokemonsProps) => {
 };
 
 export async function getStaticProps() {
-  const res = await fetch("https://pokeapi.co/api/v2/pokemon/");
-  const data = await res.json();
-  const allPokemonsResponse = await fetch(
-    `https://pokeapi.co/api/v2/pokemon?offset=0&limit=${data.count || 1118}`
-  );
-  const allPokemons = await allPokemonsResponse.json();
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery('all-pokemon-names', getAllPokemonNames);
+
   return {
     props: {
-      pokemons: allPokemons.results.map((p: any) => ({
-        label: p.name,
-        value: p.name,
-      })),
+      dehydratedState: dehydrate(queryClient),
     },
   };
 }
 
-export default Pokemons;
+export default Search;

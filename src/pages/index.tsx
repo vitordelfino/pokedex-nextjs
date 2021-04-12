@@ -9,16 +9,17 @@ import {
   Stack,
   Img,
   Tag,
+  CenterProps
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { QueryClient } from "react-query";
+import { getCountPokemons, useGetCountPokemons } from "../hooks/useAllPokemons";
+import { dehydrate } from "react-query/hydration";
 
-type IndexProps = {
-  count: number;
-};
+const MotionCenter = motion<CenterProps>(Center);
 
-const MotionCenter = motion(Center);
-
-const Index = ({ count }: IndexProps) => {
+const Index = () => {
+  const { data } = useGetCountPokemons();
   return (
     <MotionCenter
       h="100vh"
@@ -29,7 +30,7 @@ const Index = ({ count }: IndexProps) => {
         visible: { opacity: 1 },
         hidden: { opacity: 0 },
       }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: "0.5" }}
     >
       <Head>
         <title>Home</title>
@@ -73,7 +74,7 @@ const Index = ({ count }: IndexProps) => {
           <Text fontSize={["sm", "sm", "md", "md", "lg"]}>
             You can search for{" "}
             <Text as="span" decoration="underline" fontWeight="medium">
-              {count}
+              {data.count}
             </Text>{" "}
             different pokemons
           </Text>
@@ -84,12 +85,13 @@ const Index = ({ count }: IndexProps) => {
 };
 
 export async function getStaticProps() {
-  const res = await fetch("https://pokeapi.co/api/v2/pokemon/");
-  const data = await res.json();
+  
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery('pokemons', getCountPokemons);
 
   return {
     props: {
-      count: data.count || 0,
+      dehydratedState: dehydrate(queryClient),
     },
   };
 }

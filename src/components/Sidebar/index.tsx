@@ -72,9 +72,12 @@ export const MenuContent = ({ onClick }: MenuContentProps) => {
             }
           }}
         >
-          <Link as={NextLink} href={item.to}>
+          {/* <Link as={NextLink} href={item.to}>
             <Text fontSize="2xl" textDecoration={router.pathname === item.to ? "underline" : "unset"}>{item.label}</Text>
-          </Link>
+          </Link> */}
+          <NextLink href={item.to}>
+            <Text fontSize="2xl" textDecoration={router.pathname === item.to ? "underline" : "unset"}>{item.label}</Text>
+          </NextLink>
         </MotionListItem>
       ))}
     </MotionList>
