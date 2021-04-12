@@ -25,6 +25,7 @@ const PokemonCard = ({ name }: PokemonCardProps) => {
       }}
       transition="transform 0.2s"
       maxW={["100", "150", "170", "140", "170", "250", "270"]}
+      marginY="1.5"
     >
       {data && (
         <>
@@ -57,9 +58,10 @@ const PokemonCard = ({ name }: PokemonCardProps) => {
               fontWeight="medium"
             >{`Nº 00${data.order}`}</Text>
             <Text
-              fontSize={["lg","xl"]}
+              fontSize={["md","xl"]}
               textColor="gray.200"
               fontWeight="medium"
+              isTruncated
             >{firstLetterUpper(data.name)}
             </Text>
             <HStack>
@@ -67,7 +69,8 @@ const PokemonCard = ({ name }: PokemonCardProps) => {
 
                 const [ gradient, color ] = pokemonTypeColor(t.type.name);
                 return (<Tag size="sm" verticalAlign="middle" bgGradient={gradient} color={color}>
-                  {firstLetterUpper(t.type.name)}
+                  {/* {firstLetterUpper(t.type.name)} */}
+                  <Text color={color} isTruncated>{firstLetterUpper(t.type.name)}</Text>
                 </Tag>)
               }
               )}
