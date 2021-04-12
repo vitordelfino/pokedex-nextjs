@@ -33,6 +33,34 @@ const Index = () => {
       transition={{ duration: "0.5" }}
     >
       <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charSet="utf-8" />
+
+        <meta name="twitter:card" content="summary" key="twcard" />
+        <meta name="twitter:creator" content="vitordelfino" key="twhandle" />
+        <meta
+          name="twitter:image"
+          content="https://i.imgur.com/md0T87F.png"
+          key="twimage"
+        />
+
+        <meta
+          property="og:url"
+          content="www.pokedex.dev/"
+          key="ogurl"
+        />
+        <meta
+          property="og:image"
+          content="https://i.imgur.com/md0T87F.png"
+          key="ogimage"
+        />
+        <meta property="og:site_name" content="Pokedex App" key="ogsitename" />
+        <meta property="og:title" content="Pokemons" key="ogtitle" />
+        <meta
+          property="og:description"
+          content="Pokedex app developer with Next.js"
+          key="ogdesc"
+        />
         <title>Home</title>
       </Head>
       <Stack
