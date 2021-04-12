@@ -1,19 +1,12 @@
-import {
-  Center,
-  Text,
-  Wrap,
-  WrapItem,
-  VStack,
-  Button,
-} from "@chakra-ui/react";
+import { Center, Text, Wrap, WrapItem, VStack, Button } from "@chakra-ui/react";
 import { useRef, memo, useEffect } from "react";
 
 import PokemonCard from "../../components/PokemonCard";
 import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import { useListPokemon } from "../../hooks/useListPokemons";
 import Head from "next/head";
-import Aos from 'aos';
-import 'aos/dist/aos.css';
+import Aos from "aos";
+import "aos/dist/aos.css";
 const Pokemons = () => {
   const {
     isError,
@@ -66,40 +59,35 @@ const Pokemons = () => {
         />
         <title>Pokemons</title>
       </Head>
-      <Center 
+      <Center
         mW="1100px"
-        paddingX={["0", "0", "0","120", "150", "150", "200"]}
+        paddingX={["0", "0", "0", "120", "150", "150", "200"]}
         marginLeft={["0", "0", "0", "200", "220", "220", "220"]}
       >
-
-        
         <VStack spacing={8}>
           <Text fontSize="2xl">POKEMONS</Text>
           {isError && <Text>Error</Text>}
           {data &&
             data.pages.map((p: any) => {
-              return (                
-                  <Wrap
-                    justifyContent="center"
-                    spacing={["1.5", "5", "10"]}
-                    justify="center"
-                    key={p.next}
-                    data-aos="fade"
-                  >
-                    {p.results.map((pokemon: any) => (
-                      <WrapItem
-                        key={pokemon.name}
-                        data-aos="slide-right"
-                        data-aos-offset="10"
-                      >
-                        <PokemonCard
-                          name={pokemon.name}
-                          url={pokemon.url}
-                        />
-                      </WrapItem>
-                    ))}
-                  </Wrap>
-              )
+              return (
+                <Wrap
+                  justifyContent="center"
+                  spacing={["1.5", "5", "10"]}
+                  justify="center"
+                  key={p.next}
+                  data-aos="fade"
+                >
+                  {p.results.map((pokemon: any) => (
+                    <WrapItem
+                      key={pokemon.name}
+                      data-aos="slide-right"
+                      data-aos-offset="10"
+                    >
+                      <PokemonCard name={pokemon.name} url={pokemon.url} />
+                    </WrapItem>
+                  ))}
+                </Wrap>
+              );
             })}
           <Button
             ref={loadMoreButtonRef as any}

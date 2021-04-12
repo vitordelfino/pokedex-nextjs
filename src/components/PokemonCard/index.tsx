@@ -19,14 +19,18 @@ const PokemonCard = ({ name }: PokemonCardProps) => {
   const { data } = useSearchPokemon(name);
 
   return (
-    <VStack _hover={{              
+    <VStack 
+      _hover={{              
       transform: 'scale(1.1)'
-    }}
-    transition="transform 0.2s">
+      }}
+      transition="transform 0.2s"
+      maxW={["100", "150", "170", "140", "170", "250", "270"]}
+    >
       {data && (
         <>
           <Box
-            maxW={["100", "150", "170", "140", "170", "250", "270"]}
+            // maxW={["100", "150", "170", "140", "170", "250", "270"]}
+            // w={["20", "150", "170", "140", "170", "250", "270"]}
             border="1px"
             borderRadius="md"
             borderColor="gray.800"
@@ -48,12 +52,12 @@ const PokemonCard = ({ name }: PokemonCardProps) => {
           </Box>
           <Box justifyContent="flex-start" w="100%" px={4}>
             <Text
-              fontSize="sm"
+              fontSize={["xs","sm"]}
               textColor="gray.500"
               fontWeight="medium"
             >{`Nº 00${data.order}`}</Text>
             <Text
-              fontSize="xl"
+              fontSize={["lg","xl"]}
               textColor="gray.200"
               fontWeight="medium"
             >{firstLetterUpper(data.name)}
