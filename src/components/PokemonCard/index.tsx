@@ -7,7 +7,7 @@ import {
   HStack,
   Tag
 } from "@chakra-ui/react";
-import { firstLetterUpper } from "../../utils/strings";
+import { fillPokemonNumber, firstLetterUpper } from "../../utils/strings";
 import { pokemonTypeColor } from "../../utils/colors";
 
 type PokemonCardProps = {
@@ -56,7 +56,7 @@ const PokemonCard = ({ name }: PokemonCardProps) => {
               fontSize={["xs","sm"]}
               textColor="gray.500"
               fontWeight="medium"
-            >{`Nº 00${data.order}`}</Text>
+            >{fillPokemonNumber(data.order)}</Text>
             <Text
               fontSize={["md","xl"]}
               textColor="gray.200"
