@@ -96,6 +96,10 @@ const Index = () => {
             </Tag>{" "}
             +{" "}
             <Tag verticalAlign="middle">
+              <Link href="https://react-query.tanstack.com">React Query</Link>
+            </Tag>
+            +{" "}
+            <Tag verticalAlign="middle">
               <Link href="https://chakra-ui.com">Chakra UI</Link>
             </Tag>
           </Text>

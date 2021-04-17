@@ -13,15 +13,17 @@ import { pokemonTypeColor } from "../../utils/colors";
 type PokemonCardProps = {
   url: string;
   name: string;
+  cursor?: 'pointer' | 'auto'
+  hoverless?: boolean; 
 };
 
-const PokemonCard = ({ name }: PokemonCardProps) => {
+const PokemonCard = ({ name, cursor = 'pointer', hoverless }: PokemonCardProps) => {
   const { data } = useSearchPokemon(name);
 
   return (
     <VStack 
       _hover={{              
-      transform: 'scale(1.1)'
+        transform: !hoverless ? 'scale(1.1)' : ''
       }}
       transition="transform 0.2s"
       maxW={["100", "150", "170", "140", "170", "250", "270"]}
@@ -30,17 +32,12 @@ const PokemonCard = ({ name }: PokemonCardProps) => {
       {data && (
         <>
           <Box
-            // maxW={["100", "150", "170", "140", "170", "250", "270"]}
-            // w={["20", "150", "170", "140", "170", "250", "270"]}
             border="1px"
             borderRadius="md"
             borderColor="gray.800"
             bg="gray.800"
-            cursor="pointer"
-            // whileHover={{ scale: 1.1 }}
-            // whileTap={{ scale: 0.95 }}
-            overflow="hidden"
-            
+            cursor={cursor}
+            overflow="hidden"            
           >
             <Image
               src={data.sprites.other["official-artwork"].front_default}
@@ -51,12 +48,12 @@ const PokemonCard = ({ name }: PokemonCardProps) => {
               }}
             />
           </Box>
-          <Box justifyContent="flex-start" w="100%" px={4}>
+          <Box justifyContent="flex-start" w="100%" px={4} cursor={cursor}>
             <Text
               fontSize={["xs","sm"]}
               textColor="gray.500"
               fontWeight="medium"
-            >{fillPokemonNumber(data.order)}</Text>
+            >{fillPokemonNumber(data.id)}</Text>
             <Text
               fontSize={["md","xl"]}
               textColor="gray.200"

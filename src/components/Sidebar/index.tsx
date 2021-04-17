@@ -37,10 +37,6 @@ export const MenuContent = ({ onClick }: MenuContentProps) => {
       label: "Home"
     },
     {
-      to: "/search",
-      label: "Search"
-    },
-    {
       to: "/pokemons",
       label: "Pokemons"
     },

@@ -1,4 +1,4 @@
-import { Center, Text, Wrap, WrapItem, VStack, Button } from "@chakra-ui/react";
+import { Center, Text, Wrap, WrapItem, VStack, Button, Box } from "@chakra-ui/react";
 import { useRef, memo, useEffect } from "react";
 
 import PokemonCard from "../../components/PokemonCard";
@@ -7,6 +7,14 @@ import { useListPokemon } from "../../hooks/useListPokemons";
 import Head from "next/head";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import { QueryClient } from "react-query";
+import {
+  getAllPokemonNames,
+  useAllPokemonNames,
+} from "../../hooks/useAllPokemons";
+import { dehydrate } from "react-query/hydration";
+import { AutoComplete } from "../../components/AutoComplete";
+import { useRouter } from "next/router";
 const Pokemons = () => {
   const {
     isError,
@@ -15,6 +23,9 @@ const Pokemons = () => {
     hasNextPage,
     isFetchingNextPage,
   } = useListPokemon();
+  const { data: pokemons } = useAllPokemonNames();
+  const router = useRouter();
+
   const loadMoreButtonRef = useRef(null);
   useIntersectionObserver({
     target: loadMoreButtonRef,
@@ -60,12 +71,15 @@ const Pokemons = () => {
         <title>Pokemons</title>
       </Head>
       <Center
-        mW="1100px"
+        mw="1100px"
         paddingX={["0", "0", "0", "120", "150", "150", "200"]}
         marginLeft={["0", "0", "0", "200", "220", "220", "220"]}
       >
         <VStack spacing={8}>
-          <Text fontSize="2xl">POKEMONS</Text>
+            <AutoComplete
+              items={pokemons}
+              onSelect={(pkName) => router.push(`/search/${pkName}`)}
+            />
           {isError && <Text>Error</Text>}
           {data &&
             data.pages.map((p: any) => {
@@ -76,12 +90,14 @@ const Pokemons = () => {
                   justify="center"
                   key={p.next}
                   data-aos="fade"
+                  
                 >
                   {p.results.map((pokemon: any) => (
                     <WrapItem
                       key={pokemon.name}
                       data-aos="slide-right"
                       data-aos-offset="10"
+                      onClick={() => router.push(`/search/${pokemon.name}`)}
                     >
                       <PokemonCard name={pokemon.name} url={pokemon.url} />
                     </WrapItem>
@@ -108,5 +124,16 @@ const Pokemons = () => {
     </>
   );
 };
+
+export async function getStaticProps() {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery("all-pokemon-names", getAllPokemonNames);
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+}
 
 export default memo(Pokemons);
