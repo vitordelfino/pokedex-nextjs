@@ -1,4 +1,4 @@
-import { Center, Text, Wrap, WrapItem, VStack, Button, Box } from "@chakra-ui/react";
+import { Center, Text, Wrap, WrapItem, VStack, Button } from "@chakra-ui/react";
 import { useRef, memo, useEffect } from "react";
 
 import PokemonCard from "../../components/PokemonCard";
