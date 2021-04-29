@@ -1,32 +1,33 @@
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider } from '@chakra-ui/react';
 import { AnimateSharedLayout } from 'framer-motion';
-import theme from '../theme'
-import { AppProps } from 'next/app'
-import { Menu } from '../components/Menu'
+import { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from "react-query/devtools";
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { Hydrate } from 'react-query/hydration';
 import { useRef } from 'react';
+import Menu from '../components/Menu';
+import theme from '../theme';
 
-function MyApp({ Component, pageProps }: AppProps) {
-  const queryClientRef = useRef<QueryClient>()
-   if (!queryClientRef.current) {
-     queryClientRef.current = new QueryClient()
-   }
+function MyApp({ Component, pageProps }: AppProps): JSX.Element {
+  const queryClientRef = useRef<QueryClient>();
+  if (!queryClientRef.current) {
+    queryClientRef.current = new QueryClient();
+  }
   return (
-    <AnimateSharedLayout >
+    <AnimateSharedLayout>
       <ChakraProvider resetCSS theme={theme}>
         <QueryClientProvider client={queryClientRef.current}>
-          <ReactQueryDevtools initialIsOpen={process.env.NODE_ENV === 'development'} />
+          <ReactQueryDevtools
+            initialIsOpen={process.env.NODE_ENV === 'development'}
+          />
           <Hydrate state={pageProps.dehydratedState}>
-            <Menu />     
+            <Menu />
             <Component {...pageProps} />
           </Hydrate>
         </QueryClientProvider>
-
       </ChakraProvider>
     </AnimateSharedLayout>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;

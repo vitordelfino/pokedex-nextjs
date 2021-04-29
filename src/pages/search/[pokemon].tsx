@@ -10,13 +10,13 @@ import {
   Wrap,
   WrapItem,
   Spinner,
-} from "@chakra-ui/react";
-import { motion } from "framer-motion";
-import PokemonCard from "../../components/PokemonCard";
-import { useRouter } from "next/router";
-import { useSearchPokemon } from "../../hooks/useSearchPokemon";
+} from '@chakra-ui/react';
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
+import PokemonCard from '../../components/PokemonCard';
+import { useSearchPokemon } from '../../hooks/useSearchPokemon';
 
-const Search = () => {
+const Search = (): JSX.Element => {
   const MotionCenter = motion(Center);
   const router = useRouter();
   const { pokemon } = router.query;
@@ -34,12 +34,7 @@ const Search = () => {
         {isLoading && <Spinner />}
         {data && (
           <Stack direction="row" w="100%" justifyContent="center">
-            <PokemonCard
-              name={pokemon as string}
-              url=""
-              cursor="auto"
-              hoverless
-            />
+            <PokemonCard name={pokemon as string} cursor="auto" hoverless />
             <Box p={8} bg="gray.800" borderRadius="md" mt={5} w="md">
               <Stack spacing={8}>
                 <HStack>
@@ -55,7 +50,7 @@ const Search = () => {
                 </HStack>
                 <HStack>
                   <Wrap>
-                    {data.stats.map((s: any) => (
+                    {data.stats.map((s) => (
                       <WrapItem>
                         <FormControl>
                           <FormLabel fontSize="md">{s.stat.name}</FormLabel>

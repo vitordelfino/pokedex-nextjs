@@ -1,8 +1,8 @@
-import { Center } from '@chakra-ui/react'
-import {motion} from 'framer-motion';
+import { Center } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
 import { useSearchPokemon } from '../../hooks/useSearchPokemon';
 
-const Evolutions = () => {
+const Evolutions = (): JSX.Element => {
   const MotionCenter = motion(Center);
   const { data } = useSearchPokemon('bulbasaur');
   return (
@@ -12,15 +12,11 @@ const Evolutions = () => {
       variants={{
         visible: { opacity: 1 },
         hidden: { opacity: 0 },
-      }}>
-      { data && (
-        <span>
-          { data.name }
-        </span>
-          
-      )}
+      }}
+    >
+      {data && <span>{data.name}</span>}
     </MotionCenter>
-  )
-}
+  );
+};
 
 export default Evolutions;

@@ -1,5 +1,4 @@
-import React from "react";
-import Head from "next/head";
+import Head from 'next/head';
 import {
   Heading,
   Text,
@@ -9,16 +8,16 @@ import {
   Stack,
   Img,
   Tag,
-  CenterProps
-} from "@chakra-ui/react";
-import { motion } from "framer-motion";
-import { QueryClient } from "react-query";
-import { getCountPokemons, useGetCountPokemons } from "../hooks/useAllPokemons";
-import { dehydrate } from "react-query/hydration";
+  CenterProps,
+} from '@chakra-ui/react';
+import { motion } from 'framer-motion';
+import { QueryClient } from 'react-query';
+import { dehydrate, DehydratedState } from 'react-query/hydration';
+import { getCountPokemons, useGetCountPokemons } from '../hooks/useAllPokemons';
 
 const MotionCenter = motion<CenterProps>(Center);
 
-const Index = () => {
+const Index = (): JSX.Element => {
   const { data } = useGetCountPokemons();
   return (
     <MotionCenter
@@ -30,7 +29,7 @@ const Index = () => {
         visible: { opacity: 1 },
         hidden: { opacity: 0 },
       }}
-      transition={{ duration: "0.5" }}
+      transition={{ duration: '0.5' }}
     >
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -44,11 +43,7 @@ const Index = () => {
           key="twimage"
         />
 
-        <meta
-          property="og:url"
-          content="www.pokedex.dev/"
-          key="ogurl"
-        />
+        <meta property="og:url" content="www.pokedex.dev/" key="ogurl" />
         <meta
           property="og:image"
           content="https://i.imgur.com/md0T87F.png"
@@ -64,24 +59,24 @@ const Index = () => {
         <title>Home</title>
       </Head>
       <Stack
-        direction={["column", "column", "column", "row"]}
+        direction={['column', 'column', 'column', 'row']}
         alignItems="center"
       >
         <Img
           src="/pokedex.svg"
           alt="pokedex"
-          boxSize={["125", "150", "200", "250", "300"]}
+          boxSize={['125', '150', '200', '250', '300']}
         />
         <VStack justifyContent="center" textAlign="center">
           <Heading size="2xl">Pokedex</Heading>
           <Text
-            fontSize={["md", "md", "lg", "lg", "xl"]}
+            fontSize={['md', 'md', 'lg', 'lg', 'xl']}
             pt="0"
             pb="0"
-            pl={["2", "2", "0", "0"]}
-            pr={["2", "2", "0", "0"]}
+            pl={['2', '2', '0', '0']}
+            pr={['2', '2', '0', '0']}
           >
-            An Pokedex app developed by{" "}
+            An Pokedex app developed by{' '}
             <Link
               href="https://vitordelfino.dev"
               fontWeight="500"
@@ -90,24 +85,24 @@ const Index = () => {
             >
               Vitor Delfino
             </Link>
-            , using{" "}
+            , using{' '}
             <Tag verticalAlign="middle">
               <Link href="https://nextjs.org/docs">Next.JS</Link>
-            </Tag>{" "}
-            +{" "}
+            </Tag>{' '}
+            +{' '}
             <Tag verticalAlign="middle">
               <Link href="https://react-query.tanstack.com">React Query</Link>
             </Tag>
-            +{" "}
+            +{' '}
             <Tag verticalAlign="middle">
               <Link href="https://chakra-ui.com">Chakra UI</Link>
             </Tag>
           </Text>
-          <Text fontSize={["sm", "sm", "md", "md", "lg"]}>
-            You can search for{" "}
+          <Text fontSize={['sm', 'sm', 'md', 'md', 'lg']}>
+            You can search for{' '}
             <Text as="span" decoration="underline" fontWeight="medium">
-              {data.count}
-            </Text>{" "}
+              {data?.count || 0}
+            </Text>{' '}
             different pokemons
           </Text>
         </VStack>
@@ -116,8 +111,9 @@ const Index = () => {
   );
 };
 
-export async function getStaticProps() {
-  
+export async function getStaticProps(): Promise<{
+  props: { dehydratedState: DehydratedState };
+}> {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery('pokemons', getCountPokemons);
 

@@ -1,26 +1,32 @@
-import { useBreakpointValue, Box } from "@chakra-ui/react";
-import { useState } from "react";
+import { useBreakpointValue, Box } from '@chakra-ui/react';
+import { useState } from 'react';
 
 import { Sidebar } from '../Sidebar';
-import { Header } from '../Header';
-export const Menu = () => {
-  const [isSidebarOpen, setSidebarOpen] = useState(false)
+import Header from '../Header';
+
+export default (): JSX.Element => {
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
   const mobileVariant = { navigation: 'drawer', navigationButton: true };
   const desktopVariant = { navigation: 'sidebar', navigationButton: false };
-  const variants = useBreakpointValue({ base: mobileVariant, lg: desktopVariant });
-  const toggleSidebar = () => 
-    setSidebarOpen(!isSidebarOpen);
+  const variants = useBreakpointValue({
+    base: mobileVariant,
+    lg: desktopVariant,
+  });
+  const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
   return (
     <>
-    <Sidebar variant={variants?.navigation} isOpen={isSidebarOpen}
-      onClose={toggleSidebar} />
-    <Box>
-      <Header
-        showSidebarButton={variants?.navigationButton}
-        onShowSidebar={toggleSidebar}
+      <Sidebar
+        variant={variants?.navigation}
+        isOpen={isSidebarOpen}
+        onClose={toggleSidebar}
       />
-    </Box>
+      <Box>
+        <Header
+          showSidebarButton={variants?.navigationButton}
+          onShowSidebar={toggleSidebar}
+        />
+      </Box>
     </>
-  )
-}
+  );
+};

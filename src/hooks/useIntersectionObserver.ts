@@ -1,4 +1,7 @@
-import React from 'react'
+/* eslint-disable consistent-return */
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import React from 'react';
 
 export default function useIntersectionObserver({
   root = {} as any,
@@ -10,29 +13,29 @@ export default function useIntersectionObserver({
 }) {
   React.useEffect(() => {
     if (!enabled) {
-      return
+      return;
     }
 
     const observer = new IntersectionObserver(
-      entries =>
-        entries.forEach(entry => entry.isIntersecting && onIntersect()),
+      (entries) =>
+        entries.forEach((entry) => entry.isIntersecting && onIntersect()),
       {
         root: root && root.current,
         rootMargin,
         threshold,
       }
-    )
+    );
 
-    const el = target && target.current
+    const el = target && target.current;
 
     if (!el) {
-      return
+      return;
     }
 
-    observer.observe(el)
+    observer.observe(el);
 
     return () => {
-      observer.unobserve(el)
-    }
-  }, [target.current, enabled])
+      observer.unobserve(el);
+    };
+  }, [target.current, enabled]);
 }
