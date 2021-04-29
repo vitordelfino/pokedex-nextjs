@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Sidebar } from '../Sidebar';
 import Header from '../Header';
 
-export default (): JSX.Element => {
+const Menu = (): JSX.Element => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const mobileVariant = { navigation: 'drawer', navigationButton: true };
   const desktopVariant = { navigation: 'sidebar', navigationButton: false };
@@ -30,3 +30,4 @@ export default (): JSX.Element => {
     </>
   );
 };
+export default Menu;

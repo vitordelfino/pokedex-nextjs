@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import { Center, Text, Wrap, WrapItem, VStack, Button } from '@chakra-ui/react';
 import { useRef, memo, useEffect } from 'react';
 
@@ -8,13 +9,14 @@ import { useRouter } from 'next/router';
 import { QueryClient } from 'react-query';
 import PokemonCard from '../../components/PokemonCard';
 import useIntersectionObserver from '../../hooks/useIntersectionObserver';
-import { useListPokemon } from '../../hooks/useListPokemons';
+import { fetchPokemons, useListPokemon } from '../../hooks/useListPokemons';
 import 'aos/dist/aos.css';
 import {
   getAllPokemonNames,
   useAllPokemonNames,
 } from '../../hooks/useAllPokemons';
 import AutoComplete from '../../components/AutoComplete';
+import { fetchPokemonByName } from '../../hooks/useSearchPokemon';
 
 const Pokemons = () => {
   const {
@@ -127,8 +129,20 @@ export async function getStaticProps(): Promise<{
   props: { dehydratedState: DehydratedState };
 }> {
   const queryClient = new QueryClient();
+  const fetchList = () =>
+    fetchPokemons({
+      pageParam: 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=12',
+    });
+  const pokemons = await fetchList();
+  for await (const [, item] of pokemons.results.entries()) {
+    if (item.name) {
+      const fetch = () => fetchPokemonByName(item.name);
+      await queryClient.prefetchQuery(['pokemon', item.name], fetch);
+    }
+  }
   await queryClient.prefetchQuery('all-pokemon-names', getAllPokemonNames);
 
+  await queryClient.prefetchInfiniteQuery(['list-pokemons'], useListPokemon);
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
