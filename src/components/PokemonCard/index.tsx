@@ -55,7 +55,9 @@ const PokemonCard = ({
             <Image
               src={data.sprites.other['official-artwork'].front_default}
               alt={data.name}
-              fallbackSrc={`https://via.placeholder.com/150?text=${name}`}
+              fallbackSrc={`https://via.placeholder.com/${
+                variant || 170
+              }?text=${name}`}
               _hover={{
                 filter:
                   'drop-shadow(0.2rem 0.2rem 0.5rem rgba(180, 160, 255, 1))',
