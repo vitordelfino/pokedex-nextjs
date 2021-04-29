@@ -1,4 +1,12 @@
-import { Box, Image, VStack, Text, HStack, Tag } from '@chakra-ui/react';
+import {
+  Box,
+  Image,
+  VStack,
+  Text,
+  HStack,
+  Tag,
+  useBreakpointValue,
+} from '@chakra-ui/react';
 import { useSearchPokemon } from '../../hooks/useSearchPokemon';
 import { fillPokemonNumber, firstLetterUpper } from '../../utils/strings';
 import { pokemonTypeColor } from '../../utils/colors';
@@ -15,14 +23,23 @@ const PokemonCard = ({
   hoverless,
 }: PokemonCardProps): JSX.Element => {
   const { data } = useSearchPokemon(name);
-
+  const variant = useBreakpointValue({
+    base: '150',
+    xs: '100',
+    sm: '140',
+    md: '150',
+    lg: '170',
+    xl: '170',
+  });
+  console.log('variants', variant);
   return (
     <VStack
       _hover={{
         transform: !hoverless ? 'scale(1.1)' : '',
       }}
       transition="transform 0.2s"
-      maxW={['100', '150', '170', '140', '170', '250', '270']}
+      // maxW={['100', '150', '170', '140', '170', '250', '270']}
+      maxW={variant || '170'}
       marginY="1.5"
     >
       {data && (

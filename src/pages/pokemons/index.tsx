@@ -93,9 +93,9 @@ const Pokemons = () => {
                 key={p.next}
                 data-aos="fade"
               >
-                {p.results.map((pokemon) => (
+                {p.results.map((pokemon, i) => (
                   <WrapItem
-                    key={pokemon.name}
+                    key={pokemon.name + i}
                     data-aos="slide-right"
                     data-aos-offset="10"
                     onClick={() => router.push(`/search/${pokemon.name}`)}
@@ -142,7 +142,7 @@ export async function getStaticProps(): Promise<{
   }
   await queryClient.prefetchQuery('all-pokemon-names', getAllPokemonNames);
 
-  await queryClient.prefetchInfiniteQuery(['list-pokemons'], useListPokemon);
+  await queryClient.prefetchQuery(['list-pokemons'], useListPokemon);
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
