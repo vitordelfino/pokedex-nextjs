@@ -1,5 +1,5 @@
 import { useBreakpointValue, Box } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useState, memo } from 'react';
 
 import { Sidebar } from '../Sidebar';
 import Header from '../Header';
@@ -30,4 +30,4 @@ const Menu = (): JSX.Element => {
     </>
   );
 };
-export default Menu;
+export default memo(Menu);

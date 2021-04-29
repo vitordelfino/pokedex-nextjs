@@ -1,5 +1,5 @@
 import { Text, Input, Box, List, ListItem } from '@chakra-ui/react';
-import { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useState, memo } from 'react';
 
 type AutoCompleteProps = {
   items: Array<{
@@ -81,4 +81,4 @@ const AutoComplete = ({ items, onSelect }: AutoCompleteProps): JSX.Element => {
   );
 };
 
-export default AutoComplete;
+export default memo(AutoComplete);

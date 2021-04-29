@@ -1,5 +1,6 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { HamburgerIcon } from '@chakra-ui/icons';
+import { memo } from 'react';
 
 interface Props {
   onShowSidebar: () => void;
@@ -19,4 +20,4 @@ const Header = ({
   </Flex>
 );
 
-export default Header;
+export default memo(Header);

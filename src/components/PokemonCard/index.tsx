@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import {
   Box,
   Image,
@@ -29,9 +30,8 @@ const PokemonCard = ({
     sm: '140',
     md: '150',
     lg: '170',
-    xl: '170',
+    xl: '250',
   });
-  console.log('variants', variant);
   return (
     <VStack
       _hover={{
@@ -105,4 +105,4 @@ const PokemonCard = ({
   );
 };
 
-export default PokemonCard;
+export default memo(PokemonCard);

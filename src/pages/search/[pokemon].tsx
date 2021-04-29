@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import {
   Center,
   VStack,
@@ -69,4 +70,4 @@ const Search = (): JSX.Element => {
   );
 };
 
-export default Search;
+export default memo(Search);
