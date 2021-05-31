@@ -16,12 +16,16 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import PokemonCard from '../../components/PokemonCard';
 import { useSearchPokemon } from '../../hooks/useSearchPokemon';
+import { useEvolutionChain } from '../../hooks/useEvolutionChain';
+import { parseEvolution } from '../../utils/parse-evolution';
 
 const Search = (): JSX.Element => {
   const MotionCenter = motion(Center);
   const router = useRouter();
   const { pokemon } = router.query;
   const { isLoading, data } = useSearchPokemon(pokemon as string);
+  const { data: evolution } = useEvolutionChain(pokemon as string);
+
   return (
     <MotionCenter
       initial="hidden"
@@ -64,6 +68,20 @@ const Search = (): JSX.Element => {
               </Stack>
             </Box>
           </Stack>
+        )}
+        {evolution && parseEvolution(evolution.chain).length > 1 && (
+          <VStack>
+            <Text fontSize="xl" fontWeight="medium">
+              Evoluções
+            </Text>
+            <Wrap align="center" justify="center">
+              {parseEvolution(evolution.chain).map((p) => (
+                <WrapItem onClick={() => router.push(`/search/${p}`)}>
+                  <PokemonCard name={p} cursor="pointer" hoverless />
+                </WrapItem>
+              ))}
+            </Wrap>
+          </VStack>
         )}
       </VStack>
     </MotionCenter>
