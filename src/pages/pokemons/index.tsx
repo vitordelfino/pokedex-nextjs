@@ -87,6 +87,7 @@ const Pokemons = () => {
           {data &&
             data.pages.map((p) => (
               <Wrap
+                pt="10"
                 justifyContent="center"
                 spacing={['1.5', '5', '10']}
                 justify="center"
