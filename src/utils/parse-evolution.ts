@@ -6,6 +6,8 @@ export const parseEvolution = (
 ): string[] => {
   const { name } = chain.species;
   if (chain.evolves_to.length > 0)
-    return [...parseEvolution(chain.evolves_to[0], [...evolves, name])];
+    if (chain.evolves_to.length > 1)
+      return [name, ...chain.evolves_to.map((e) => e.species.name)];
+    else return [...parseEvolution(chain.evolves_to[0], [...evolves, name])];
   return [...evolves, name];
 };
