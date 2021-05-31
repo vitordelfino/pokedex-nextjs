@@ -72,7 +72,7 @@ const Search = (): JSX.Element => {
         {evolution && parseEvolution(evolution.chain).length > 1 && (
           <VStack>
             <Text fontSize="xl" fontWeight="medium">
-              Evoluções
+              Evolution Chain
             </Text>
             <Wrap align="center" justify="center">
               {parseEvolution(evolution.chain).map((p) => (
