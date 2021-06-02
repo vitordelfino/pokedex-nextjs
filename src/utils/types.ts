@@ -233,3 +233,35 @@ export interface EvolutionChain {
   chain: Chain;
   id: number;
 }
+
+/* eslint-disable camelcase */
+
+export interface Doubledamagefrom {
+  name: string;
+  url: string;
+}
+export interface Name {
+  language: Doubledamagefrom;
+  name: string;
+}
+
+export interface Damagerelations {
+  double_damage_from: Doubledamagefrom[];
+  double_damage_to: Doubledamagefrom[];
+  half_damage_from: Doubledamagefrom[];
+  half_damage_to: Doubledamagefrom[];
+  no_damage_from: any[];
+  no_damage_to: any[];
+}
+
+export interface TypeSpecs {
+  damage_relations: Damagerelations;
+  game_indices: Gameindex[];
+  generation: Doubledamagefrom;
+  id: number;
+  move_damage_class: Doubledamagefrom;
+  moves: Doubledamagefrom[];
+  name: string;
+  names: Name[];
+  pokemon: Pokemon[];
+}

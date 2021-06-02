@@ -5,12 +5,12 @@ import {
   VStack,
   Text,
   HStack,
-  Tag,
   useBreakpointValue,
 } from '@chakra-ui/react';
 import { useSearchPokemon } from '../../hooks/useSearchPokemon';
 import { fillPokemonNumber, firstLetterUpper } from '../../utils/strings';
-import { pokemonTypeColor } from '../../utils/colors';
+
+import TagType from '../TagType';
 
 type PokemonCardProps = {
   name: string;
@@ -81,22 +81,9 @@ const PokemonCard = ({
               {firstLetterUpper(data.name)}
             </Text>
             <HStack>
-              {data.types.map((t) => {
-                const [gradient, color] = pokemonTypeColor(t.type.name);
-                return (
-                  <Tag
-                    size="sm"
-                    verticalAlign="middle"
-                    bgGradient={gradient}
-                    color={color}
-                  >
-                    {/* {firstLetterUpper(t.type.name)} */}
-                    <Text color={color} isTruncated>
-                      {firstLetterUpper(t.type.name)}
-                    </Text>
-                  </Tag>
-                );
-              })}
+              {data.types.map((t) => (
+                <TagType text={t.type.name} />
+              ))}
             </HStack>
           </Box>
         </>
